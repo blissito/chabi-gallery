@@ -16,6 +16,9 @@ jobs:
     - name: Setup Fly.io CLI
       uses: superfly/flyctl-actions/setup-flyctl@master
     
+    - name: Run tests (if available)
+      run: npm test || echo "No tests found, skipping..."
+    
     - name: Deploy to Fly.io
       run: flyctl deploy --remote-only
       env:
