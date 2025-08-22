@@ -1,0 +1,83 @@
+.caprasimo-regular {
+  font-family: "Caprasimo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  --chabi-color: #0F0140;
+  --chabi-color-verde: #1D0259;
+  --chabi-color-amarillo: #1F1A40;
+  --chabi-color-cafe: #2484BF;
+  --chabi-color-shadow: #F26D6D;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-family: sans-serif;
+  color: var(--chabi-color-verde);
+  text-shadow: 2px 2px 3px var(--chabi-color-shadow);
+  background-color: rgb(114, 105, 186);
+  border: 2px black dotted;
+  border-style: dashed;
+  border-width: 4px;
+  border-color: var(--chabi-color);
+}
+
+.fila {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fila img {
+  width: 320px;
+  border-radius: 16px;
+}
+
+body {
+  background-color: var(--chabi-color-cafe);
+}
+
+.archivos {
+  background-color: var(--chabi-color-shadow);
+  padding: 20px 80px;
+  border-radius: 16px;
+  border: 4px var(--chabi-color-amarillo) dashed;
+  max-width: max-content;
+  position: fixed;
+  left: 30%;
+  top: 30%;
+}
+
+.archivos p {
+  font-size: 30px;
+  font-family: "Caprasimo", serif;
+  color: var(--chabi-color-verde);
+}
+
+.principal {
+  display: flex;
+}
+
+.emojis {
+  display: flex;
+  flex-direction: column;
+  font-size: 48px;
+  padding: 20px;
+}
+
+.emojis span {
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
