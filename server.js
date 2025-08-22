@@ -218,7 +218,7 @@ app.get('/sdk/image-api.js', (req, res) => {
 // GET /sdk/example - Servir ejemplo de uso
 app.get('/sdk/example', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'chabi-birthday.html'));
 });
 
 // Manejo de errores global

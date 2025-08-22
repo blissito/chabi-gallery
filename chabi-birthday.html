@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz cumpleaños Chabi!</title> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+    <script src="https://chabi.fly.dev/sdk/image-api.js"></script>
+    <style>
+        .caprasimo-regular {
+            font-family: "Caprasimo", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        :root {
+            --chabi-color: #7F66D9;
+            --chabi-color-verde: #EF22F2;
+            --chabi-color-amarillo: #1848D9;
+            --chabi-color-cafe: #4EA6A6;
+            --chabi-color-shadow: #6AD991;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(130, 193, 235);
+            font-family: "Caprasimo", serif;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-family: "Caprasimo", serif;
+            color: var(--chabi-color);
+            text-shadow: 5px 5px 4px rgb(0, 0, 0);
+            background-color: var(--chabi-color-shadow);
+            border: 4px dashed var(--chabi-color-amarillo);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 90%;
+        }
+
+        .principal {
+            display: flex;
+            min-height: 100vh;
+            align-items: stretch;
+        }
+
+        .emojis {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 20px 23px;
+            background-color: palevioletred;
+            border-radius: 50px;
+            margin: 0px 24px;
+        }
+
+        .emojis span {
+            font-size: 35px;
+            transition: all .3s ease-in-out;
+            animation: banda 1s infinite alternate;
+        }
+
+        .emojis span:hover {
+            scale: 1.2;
+            rotate: 360deg;
+        }
+
+        @keyframes banda {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(100%);
+            }
+        }
+
+        article {
+            flex: 1;
+            padding: 20px;
+        }
+
+
+        .archivos {
+            background-color: var(--chabi-color-cafe);
+            padding: 20px 40px;
+            border-radius: 16px;
+            border: 4px solid var(--chabi-color-amarillo);
+            max-width: 400px;
+            width: 90%;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .archivos p {
+            font-size: 30px;
+            font-family: "Caprasimo", serif;
+            color: var(--chabi-color-amarillo);
+            margin-bottom: 20px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--chabi-color-verde);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: "Caprasimo", serif;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #previewContainer {
+            margin-top: 20px;
+        }
+
+        #previewImage {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #uploadButton {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: var(--chabi-color-verde);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: "Caprasimo", serif;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        #uploadButton:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #uploadButton:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--chabi-color-amarillo);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fila {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .fila img {
+            width: 320px;
+            height: 400px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .fila img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-trigger {
+            position: relative;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .upload-trigger p {
+            font-size: 1.5rem;
+            color: var(--chabi-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-trigger p:hover {
+            transform: scale(1.05);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--chabi-color);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .principal {
+                flex-direction: column;
+            }
+            
+            .emojis {
+                flex-direction: row;
+                overflow-x: auto;
+                border-radius: 20px;
+                margin: 10px;
+            }
+            
+            .archivos {
+                left: 10px;
+                right: 10px;
+                transform: translate(0, -50%);
+                padding: 20px;
+            }
+            
+            .fila img {
+                width: 45%;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="principal">
+        <section class="emojis">
+            <span>🥳</span>
+            <span>🎉</span>
+            <span>🎁</span>
+            <span>🪅</span>
+            <span>🌷</span>
+            <span>💖</span>
+            <span>🌹</span>
+            <span>🥑</span>
+            <span>🚴🏽‍♂️</span>
+            <span>🫶🏼</span>
+            <span>😚</span>
+            <span>🥰</span>
+            <span>😜</span>
+            <span>😋</span>
+            <span>😇</span>
+            <span>🥹</span>
+            <span>😃</span>
+            <span>🪐</span>
+            <span>🌻</span>
+            <span>🌈</span>
+            <span>⚡</span>
+            <span>✨</span>
+            <span>🪷</span>
+            <span>🌊</span>
+        </section>
+        
+        <article>
+            <h1 class="caprasimo-regular">
+                ¡Feliz cumpleaños chabi! 
+            </h1>
+            
+            <section class="archivos" id="uploadSection">
+                <p>Selecciona tus fotos con chabi</p>
+                <label for="fileInput" class="file-label">
+                    📷 Elegir foto
+                </label>
+                <input accept="image/*" type="file" id="fileInput" />
+                <div id="previewContainer" style="display: none;">
+                    <img id="previewImage" />
+                    <button id="uploadButton">
+                        Subir imagen
+                    </button>
+                </div>
+            </section>
+            
+            <section class="fila" id="gallery">
+                <div class="loading">Cargando galería...</div>
+            </section>
+        </article>
+        
+        <section class="emojis">
+            <span>🥳</span>
+            <span>🎉</span>
+            <span>🎁</span>
+            <span>🪅</span>
+            <span>🌷</span>
+            <span>💖</span>
+            <span>🌹</span>
+            <span>🥑</span>
+        </section>
+    </main>
+
+    <script>
+        let selectedFile = null;
+
+        async function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '<div class="loading">Cargando galería...</div>';
+            
+            try {
+                const result = await ImageAPI.getGallery();
+                if (result && result.images && result.images.length > 0) {
+                    gallery.innerHTML = '';
+                    result.images.forEach((image) => {
+                        const img = document.createElement('img');
+                        img.src = image.url;
+                        img.alt = image.filename || 'Foto de galería';
+                        img.loading = 'lazy';
+                        gallery.appendChild(img);
+                    });
+                } else {
+                    gallery.innerHTML = '<div class="loading">No hay fotos todavía. ¡Sé el primero en subir una!</div>';
+                }
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+                gallery.innerHTML = '<div class="loading">Error al cargar la galería</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImage = document.getElementById('previewImage');
+            const uploadButton = document.getElementById('uploadButton');
+
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    selectedFile = file;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        previewImage.src = e.target.result;
+                        previewContainer.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            uploadButton.addEventListener('click', async () => {
+                if (selectedFile) {
+                    uploadButton.disabled = true;
+                    uploadButton.textContent = 'Subiendo...';
+                    
+                    try {
+                        const result = await ImageAPI.uploadImage(selectedFile);
+                        
+                        if (result && result.success) {
+                            await loadGallery();
+                            // Limpiar formulario
+                            fileInput.value = '';
+                            previewContainer.style.display = 'none';
+                            selectedFile = null;
+                            alert('¡Imagen subida con éxito!');
+                        } else {
+                            alert('Error al subir la imagen. Intenta de nuevo.');
+                        }
+                    } catch (error) {
+                        console.error('Upload error:', error);
+                        alert('Error al subir la imagen. Intenta de nuevo.');
+                    } finally {
+                        uploadButton.disabled = false;
+                        uploadButton.textContent = 'Subir imagen';
+                    }
+                }
+            });
+
+            loadGallery();
+        });
+    </script>
+</body>
+</html>
