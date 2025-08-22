@@ -76,4 +76,4 @@ Cambia los colores en `index.html` buscando esta parte:
 
 ---
 
-**¡Feliz programación!** 🚀 ¿Preguntas? ¡No tengas miedo de preguntar!
+**¡A programar se ha dicho!** 🚀 ¿Tienes dudas? ¡Pregunta sin miedo!
