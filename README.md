@@ -76,4 +76,4 @@ Cambia los colores en `index.html` buscando esta parte:
 
 ---
 
-**¡Dale que funciona!** 🚀 Si algo se rompe, ¡pregunta nomás!
+**¡Que lo disfrutes!** 🚀 Si tienes dudas, ¡pregunta!
