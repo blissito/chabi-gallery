@@ -54,6 +54,25 @@ app.get('/', (req, res) => {
 // GET /api/gallery - Listar todas las imágenes
 app.get('/api/gallery', async (req, res) => {
   try {
+    // Verificar configuración antes de hacer la llamada
+    if (!BUCKET_NAME) {
+      console.error('BUCKET_NAME not configured');
+      return res.status(500).json({ 
+        error: 'Server configuration error: BUCKET_NAME missing',
+        details: 'Check environment variables'
+      });
+    }
+
+    if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+      console.error('AWS credentials not configured');
+      return res.status(500).json({ 
+        error: 'Server configuration error: AWS credentials missing',
+        details: 'Check AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY'
+      });
+    }
+
+    console.log('Fetching gallery from bucket:', BUCKET_NAME, 'prefix:', UPLOAD_PREFIX);
+
     const command = new ListObjectsV2Command({
       Bucket: BUCKET_NAME,
       Prefix: UPLOAD_PREFIX,
@@ -61,6 +80,7 @@ app.get('/api/gallery', async (req, res) => {
     });
 
     const response = await s3Client.send(command);
+    console.log('S3 response received, objects found:', response.Contents?.length || 0);
     
     const images = await Promise.all(
       (response.Contents || [])
@@ -82,13 +102,26 @@ app.get('/api/gallery', async (req, res) => {
         })
     );
 
+    console.log('Gallery processed successfully, returning', images.length, 'images');
     res.json({
       images,
       count: images.length
     });
   } catch (error) {
     console.error('Error listing gallery:', error);
-    res.status(500).json({ error: 'Failed to fetch gallery' });
+    console.error('Error details:', {
+      name: error.name,
+      message: error.message,
+      code: error.code,
+      statusCode: error.$response?.statusCode,
+      requestId: error.$response?.requestId
+    });
+    
+    res.status(500).json({ 
+      error: 'Failed to fetch gallery',
+      details: error.message,
+      type: error.name
+    });
   }
 });
 
